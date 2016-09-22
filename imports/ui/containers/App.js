@@ -2,14 +2,15 @@ import React from 'react'
 import Tracker from 'tracker-component';
 import { IndexLink, Link } from 'react-router';
 import { IonBody, IonHeaderBar } from 'reactionic';
+import { getPlatform } from '/imports/helpers.js';
 
 class AppContainer extends Tracker.Component {
+
   render() {
+    let platform = getPlatform('iOS');
+
     return (
-      <IonBody location={this.props.location} >
-        <IonHeaderBar>
-          <div class="h1 title"><Link to="/places"><img src="/images/cityforks-03.png" class="logo" alt="CITYFORKS" /></Link></div>
-        </IonHeaderBar>
+      <IonBody platform={platform} location={this.props.location} >
         { this.props.children }
       </IonBody>
     );
