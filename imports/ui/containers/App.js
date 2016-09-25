@@ -29,7 +29,7 @@ class AppContainer extends Tracker.Component {
 
     return (
       <IonBody platform={platform} location={this.props.location} >
-        { this.props.children }
+        { React.cloneElement(this.props.children, {geo: this.state.location}) }
       </IonBody>
     );
   }

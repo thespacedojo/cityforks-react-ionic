@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonSubHeaderBar, IonContent, IonList, IonItem } from 'reactionic';
 
-const Places = () => {
+const Places = ({geo}) => {
   return (
     <div>
       <IonSubHeaderBar>

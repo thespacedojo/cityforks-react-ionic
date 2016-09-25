@@ -9,8 +9,8 @@ class Layout extends Tracker.Component {
       <div>
         <IonHeaderBar customClasses="bar-assertive" alignTitle="center" title={<img src="images/cityforks-03.png" className="logo" alt="CITYFORKS" />} />
         <IonNavView>
-          <IonView customClasses="" {...this.props}>
-            {this.props.children}
+          <IonView {...this.props}>
+            { React.cloneElement(this.props.children, {geo: this.props.geo}) }
           </IonView>
         </IonNavView>
       </div>
