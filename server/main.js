@@ -1,6 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import Places from '/imports/api/Places.js';
 
+Meteor.publish("places/nearbyBox", function(bottomLeft, topRight) {
+  console.log(JSON.stringify(bottomLeft));
+  console.log(JSON.stringify(topRight));
+  return Places.find({point: {$geoWithin: {$box: [bottomLeft, topRight]}}});
+});
+
 Meteor.publish("places/nearby", function(coords) {
   check(coords, {lat: Number, lng: Number})
   let places = Places.aggregate([
@@ -8,8 +14,8 @@ Meteor.publish("places/nearby", function(coords) {
         "near": {
             "type": "Point",
             "coordinates": [ coords.lng, coords.lat ]
-        }, 
-        "maxDistance": 500 * 1609,
+        },
+        "maxDistance": 2 * 1609,
         "spherical": true,
         "distanceField": "distance",
         "distanceMultiplier": 0.000621371
