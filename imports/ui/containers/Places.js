@@ -1,23 +1,24 @@
 import React from 'react'
 import Tracker from 'tracker-component';
 import PlacesCollection from '/imports/api/Places.js';
-import PlacesComponent from '/imports/ui/components/Places.js';
+import PlacesList from '/imports/ui/components/PlacesList.js';
 
-const Places extends Tracker.Component {
+class Places extends Tracker.Component {
   constructor() {
     super();
-    Meteor.subscribe('places/nearby', this.props.geo);
-    this.autorun( () => {
-      let places = PlacesCollection.find().fetch();
-      this.setState({places})
+    this.setState({places: []});
+    this.autorun(() => {
+      if (this.props && this.props.geo) {
+        this.subscribe('places/nearby', this.props.geo);
+        let places = PlacesCollection.find().fetch();
+        this.setState({places})
+      }
     })
   }
 
   render() {
-    return (
-      <PlacesComponent places={this.state.places} />
-    )
+    return <PlacesList places={this.state.places} />
   }
 }
 
-export default Places
+export default Places;
